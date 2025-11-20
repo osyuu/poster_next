@@ -1,0 +1,13 @@
+.sidebar-container {
+  flex-grow: 1;
+  flex-shrink: 1;
+  max-width: 350px;
+  min-width: 290px;
+  margin-right: 4.375rem;
+}
+
+.sidebar-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}

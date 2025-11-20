@@ -1,0 +1,24 @@
+.footer {
+  --bg-footer: #2c3e50;
+  --text-footer: #ecf0f1;
+
+  background: var(--bg-footer);
+  color: var(--text-footer);
+  text-align: center;
+  padding: 1.5rem 0;
+  width: 100%;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--text-footer);
+  opacity: 0.9;
+}
+
+@media (prefers-color-scheme: dark) {
+  .footer {
+    --bg-footer: #2d3748;
+    --text-footer: #cbd5e0;
+  }
+}
