@@ -1,0 +1,52 @@
+.post-form {
+  display: flex;
+  flex-direction: row;
+  padding: 0 1rem;
+}
+
+.avatar-container {
+  flex-grow: 0;
+  display: flex;
+  flex-direction: column;
+  margin-right: 0.5rem;
+}
+
+.main-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 1rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0;
+}
+
+.content input {
+  border: none;
+  outline: none;
+  box-shadow: none;
+  font-size: 1.5rem;
+}
+
+.footer {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  justify-content: flex-end;
+}
+
+.post-button {
+  background: var(--button-primary);
+  color: var(--text-inverse);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 1.5rem;
+  cursor: pointer;
+}
+
+.post-button:disabled {
+  background: var(--button-secondary);
+}

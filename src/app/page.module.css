@@ -1,19 +1,6 @@
-.main {
-  --button-primary-hover: #383838;
-  --button-secondary-hover: #f2f2f2;
-  --button-secondary-border: #ebebeb;
-
+.container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-  width: 600px;
-  background-color: var(--bg-secondary);
-}
-
-@media (prefers-color-scheme: dark) {
-  .main {
-    --button-primary-hover: #ccc;
-    --button-secondary-hover: #1a1a1a;
-    --button-secondary-border: #1a1a1a;
-  }
+  max-height: 100vh;
 }

@@ -1,16 +1,22 @@
 :root {
-  --bg-primary: #fafafa;
-  --bg-secondary: #ffffff;
+  --bg-primary: rgb(255, 255, 255);
   --text-primary: #000;
   --text-secondary: #666;
+  --text-inverse: #ffffff;
+  --border-light: rgb(239, 243, 244);
+  --button-primary: #1d9bf0;
+  --button-secondary: #000000;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg-primary: #0a0a0a;
-    --bg-secondary: #1a202c;
+    --bg-primary: #000000;
     --text-primary: #ededed;
     --text-secondary: #999;
+    --text-inverse: #ffffff;
+    --border-light: #333;
+    --button-primary: #1d9bf0;
+    --button-secondary: #909090;
   }
 }
 
