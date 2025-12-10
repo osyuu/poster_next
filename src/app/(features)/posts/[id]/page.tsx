@@ -1,41 +1,32 @@
-import type { GetPostResponse, ApiError } from "@/types";
 import Link from "next/link";
 import styles from "./page.module.css";
+import { postRepository } from "@/lib/repositories/post_repository";
+import { notFound } from "next/navigation";
 
 interface PostDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
+export const dynamic = "force-dynamic";
+
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;
-  console.log("id", id);
-  const res = await fetch(`http://localhost:3000/api/v1/posts/${id}`, {
-    cache: "no-store",
-  });
+  const postId = parseInt(id);
 
-  if (!res.ok) {
-    const error = (await res.json()) as ApiError;
-    return (
-      <div className={styles.container}>
-        <div className={styles.error}>
-          <h1>錯誤</h1>
-          <p>{error.error.message}</p>
-          <Link href="/posts">返回列表</Link>
-        </div>
-      </div>
-    );
+  const post = postRepository.findById(postId);
+
+  if (!post) {
+    notFound();
   }
-
-  const { data: post } = (await res.json()) as GetPostResponse;
 
   return (
     <div className={styles.container}>
-      <Link href="/posts" className={styles.backLink}>
+      <Link href="/" className={styles.backLink}>
         ← 返回列表
       </Link>
 
       <article className={styles.post}>
-        <h1 className={styles.title}>{post.title}</h1>
+        <h1 className={styles.title}>{post.content}</h1>
 
         <div className={styles.meta}>
           <div className={styles.author}>

@@ -1,16 +1,15 @@
 "use client";
 import styles from "./PostForm.module.css";
 import Avatar from "@/components/Avatar";
-import { useData } from "@/context/data_context";
-import { CreatePostRequest, CreatePostResponse, User } from "@/types";
+import { User } from "@/types";
 import { useMemo, useState } from "react";
+import { createPost } from "../actions";
 
 interface PostFormProps {
   profile: User | null;
 }
 
 export default function PostForm({ profile }: PostFormProps) {
-  const { setPosts } = useData();
   const [content, setContent] = useState("");
 
   const isDisabled = useMemo(() => {
@@ -22,16 +21,13 @@ export default function PostForm({ profile }: PostFormProps) {
   }
 
   const handleSubmit = async () => {
-    const res = await fetch("/api/v1/posts", {
-      method: "POST",
-      body: JSON.stringify({
-        content: content,
-        authorId: profile.id,
-      } satisfies CreatePostRequest),
-    });
-    const { data: addedPost } = (await res.json()) as CreatePostResponse;
-    setPosts((prevPosts) => [addedPost, ...prevPosts]);
-    setContent("");
+    const result = await createPost(content, profile.id);
+    if (result.success) {
+      console.log("result", result.data);
+      setContent("");
+    } else {
+      console.error(result.error);
+    }
   };
 
   return (

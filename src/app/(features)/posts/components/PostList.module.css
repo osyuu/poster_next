@@ -1,15 +1,6 @@
 .post-list-container {
-  --hover-color: rgba(0, 0, 0, 0.05);
   display: flex;
   flex-direction: column;
-}
-
-.post-item-container {
-  cursor: pointer;
-}
-
-.post-item-container:hover {
-  background-color: var(--hover-color);
 }
 
 .post-item-container:not(:last-child) {

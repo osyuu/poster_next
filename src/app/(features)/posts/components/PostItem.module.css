@@ -1,7 +1,22 @@
+.post-item-wrapper {
+  --hover-color: rgba(0, 0, 0, 0.05);
+  position: relative;
+}
+
 .post-item {
   display: flex;
   flex-direction: row;
   padding: 0 1rem;
+}
+
+.post-item:hover {
+  cursor: pointer;
+  background-color: var(--hover-color);
+}
+
+.post-item-wrapper.menu-open .post-item:hover,
+.post-item-wrapper.menu-open .header-setting:hover {
+  background-color: transparent;
 }
 
 .avatar-container {
@@ -34,6 +49,11 @@
 
 .header-setting {
   flex-shrink: 0;
+}
+
+.header-setting:hover {
+  cursor: pointer;
+  color: var(--text-secondary);
 }
 
 .author {

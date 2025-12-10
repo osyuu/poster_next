@@ -12,6 +12,33 @@ export type ApiError = {
   };
 };
 
+export enum ErrorCode {
+  MISSING_FIELDS = "MISSING_FIELDS",
+  USER_NOT_FOUND = "USER_NOT_FOUND",
+  POST_NOT_FOUND = "POST_NOT_FOUND",
+  SERVER_ERROR = "SERVER_ERROR",
+}
+
+export interface ErrorWithCode extends Error {
+  code: ErrorCode;
+}
+
+export function createError(code: ErrorCode, message: string): ErrorWithCode {
+  const error = new Error(message) as ErrorWithCode;
+  error.code = code;
+  return error;
+}
+
+export function getErrorStatus(code: ErrorCode): number {
+  const statusMap: Record<ErrorCode, number> = {
+    [ErrorCode.MISSING_FIELDS]: 400,
+    [ErrorCode.USER_NOT_FOUND]: 404,
+    [ErrorCode.POST_NOT_FOUND]: 404,
+    [ErrorCode.SERVER_ERROR]: 500,
+  };
+  return statusMap[code] ?? 500;
+}
+
 // Posts API 相關類型
 // 注意：API 回應通常包含關聯資料，所以使用 PostWithAuthor
 export type GetPostsResponse = ApiResponse<PostWithAuthor[]>;
