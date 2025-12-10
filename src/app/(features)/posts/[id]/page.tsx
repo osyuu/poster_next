@@ -13,7 +13,7 @@ export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { id } = await params;
   const postId = parseInt(id);
 
-  const post = postRepository.findById(postId);
+  const post = await postRepository.findById(postId);
 
   if (!post) {
     notFound();

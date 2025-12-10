@@ -1,5 +1,5 @@
 "use client";
-import { PostWithAuthor } from "@/types";
+import { PostWithAuthorSummary } from "@/types";
 import styles from "./PostItem.module.css";
 import Link from "next/link";
 import Avatar from "@/components/Avatar";
@@ -8,7 +8,7 @@ import DropdownMenu, { MenuItem } from "@/components/DropdownMenu";
 import { useState } from "react";
 
 interface PostItemProps {
-  post: PostWithAuthor;
+  post: PostWithAuthorSummary;
 }
 
 export default function PostItem({ post }: PostItemProps) {

@@ -1,7 +1,7 @@
 "use server";
 
 import { postRepository } from "@/lib/repositories/post_repository";
-import type { PostWithAuthor } from "@/types";
+import type { Post } from "@/types";
 import { ErrorCode } from "@/types";
 import { revalidatePath } from "next/cache";
 
@@ -12,7 +12,7 @@ type ActionResult<T> =
 export async function createPost(
   content: string,
   authorId: number
-): Promise<ActionResult<PostWithAuthor>> {
+): Promise<ActionResult<Post>> {
   if (!content || !authorId) {
     return {
       success: false,
@@ -24,7 +24,7 @@ export async function createPost(
   }
 
   try {
-    const post = postRepository.create({ content, authorId });
+    const post = await postRepository.create({ content, authorId });
     revalidatePath("/");
     return { success: true, data: post };
   } catch (error) {
@@ -43,7 +43,7 @@ export async function createPost(
 
 export async function deletePost(id: number): Promise<ActionResult<void>> {
   try {
-    postRepository.delete(id);
+    await postRepository.delete(id);
     revalidatePath("/");
     return { success: true, data: undefined };
   } catch {

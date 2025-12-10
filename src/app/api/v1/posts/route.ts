@@ -5,7 +5,7 @@ import { postRepository } from "@/lib/repositories/post_repository";
 export async function GET(): Promise<
   NextResponse<GetPostsResponse | ApiError>
 > {
-  const posts = postRepository.findAll();
+  const posts = await postRepository.findAll();
 
   return NextResponse.json(
     {

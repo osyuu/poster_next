@@ -6,7 +6,7 @@ import { postRepository } from "@/lib/repositories/post_repository";
 export default async function PostList() {
   await connection();
 
-  const posts = postRepository.findAll();
+  const posts = await postRepository.findAll();
 
   return (
     <div className={styles["post-list-container"]}>
