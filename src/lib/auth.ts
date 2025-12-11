@@ -1,39 +1,80 @@
-import { User } from "@/types";
-import { unstable_noStore } from "next/cache";
+import NextAuth from "next-auth";
+import Credentials from "next-auth/providers/credentials";
+import { connection } from "next/server";
 import { cache } from "react";
+import { db } from "@/lib/db";
+import { user } from "@/lib/db/schema";
+import { eq } from "drizzle-orm";
+import { userRepository } from "./repositories/user_repository";
+import { User } from "@/types";
+import { AdapterUser } from "next-auth/adapters";
 
-export const getCurrentUser = cache(async (): Promise<User | null> => {
-  unstable_noStore();
-  try {
-    // const cookieStore = await cookies();
-    // const sessionToken = cookieStore.get("session")?.value;
+export const { handlers, auth, signIn, signOut } = NextAuth({
+  providers: [
+    Credentials({
+      name: "credentials",
+      credentials: {
+        email: {
+          label: "Email",
+          type: "email",
+          placeholder: "jsmith@example.com",
+        },
+        password: { label: "Password", type: "password" },
+      },
+      async authorize(credentials) {
+        const { email, password } = credentials;
+        if (!email || typeof email !== "string") {
+          return null;
+        }
+        if (!password || typeof password !== "string") {
+          return null;
+        }
 
-    // if (!sessionToken) {
-    //   return null;
-    // }
+        // check if user exists
+        const foundUser = await db.query.user.findFirst({
+          where: eq(user.email, email),
+        });
 
-    // const response = await fetch(`${process.env.API_URL}/auth/verify`, {
-    //   headers: {
-    //     Authorization: `Bearer ${sessionToken}`,
-    //   },
-    // });
+        if (!foundUser) {
+          return null;
+        }
 
-    // if (!response.ok) {
-    //   return null;
-    // }
+        // TODO: 之後加上密碼驗證
 
-    // const user = await response.json();
-    // return user;
+        return {
+          id: String(foundUser.id),
+          name: foundUser.display,
+          email: foundUser.email,
+          image: foundUser.avatar,
+        };
+      },
+    }),
+  ],
+  callbacks: {
+    async jwt({ token, user }) {
+      if (user) {
+        token.id = user.id;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (token.id) {
+        session.user.id = token.id as string;
+      }
+      return session;
+    },
+  },
+  pages: {
+    signIn: "/login",
+  },
+});
 
-    const user = {
-      id: 1,
-      username: "user1",
-      email: "user1@example.com",
-      display: "作者A",
-      avatar: "https://ui-avatars.com/api/?name=John+Doe&size=40",
-    };
-    return user;
-  } catch {
+export const getCurrentUser = cache(async () => {
+  const session = await auth();
+
+  if (!session?.user?.id) {
     return null;
   }
+
+  return userRepository.findById(Number(session.user.id));
 });

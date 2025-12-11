@@ -1,9 +1,3 @@
-export type User = {
-  id: number;
-  username: string;
-  email: string;
-  display: string;
-  avatar: string;
-  createdAt?: string;
-  updatedAt?: string;
-};
+import { user } from "@/lib/db/schema";
+
+export type User = typeof user.$inferSelect;
