@@ -1,0 +1,25 @@
+import styles from "./layout.module.css";
+import Header from "@/components/Header";
+import SidebarColumn from "@/components/SidebarColumn";
+
+export default function MainLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return (
+    <div className={styles["container"]}>
+      <header className={styles["header-container"]}>
+        <Header />
+      </header>
+      <main className={styles["main-container"]}>
+        <div className={styles["main"]}>
+          <div className={styles["content-container"]}>{children}</div>
+          <div className={styles["sidebar-container"]}>
+            <SidebarColumn />
+          </div>
+        </div>
+      </main>
+    </div>
+  );
+}

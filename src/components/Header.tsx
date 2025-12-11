@@ -1,8 +1,9 @@
 import Link from "next/link";
 import Image from "next/image";
 import styles from "./Header.module.css";
+import Profile from "./Profile";
 
-export default function Header() {
+export default async function Header() {
   return (
     <header className={styles["header-container"]}>
       <div className={styles["header-position"]}>
@@ -31,9 +32,7 @@ export default function Header() {
               </Link>
             </div>
           </div>
-          <div className={styles["header-profile"]}>
-            <p>Profile</p>
-          </div>
+          <Profile />
         </div>
       </div>
     </header>

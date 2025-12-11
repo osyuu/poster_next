@@ -13,7 +13,8 @@ export interface MenuItem {
 interface DropdownMenuProps {
   trigger: ReactNode;
   items: MenuItem[];
-  align?: "left" | "right";
+  position?: "top" | "bottom";
+  align?: "left" | "right" | "center";
   className?: string;
   onOpenChange?: (isOpen: boolean) => void;
 }
@@ -21,6 +22,7 @@ interface DropdownMenuProps {
 export default function DropdownMenu({
   trigger,
   items,
+  position = "bottom",
   align = "left",
   className,
   onOpenChange,
@@ -74,7 +76,9 @@ export default function DropdownMenu({
       {isOpen && (
         <div
           ref={menuRef}
-          className={`${styles["menu"]} ${styles[`menu-${align}`]}`}
+          className={`${styles["menu"]} ${styles[`menu-${position}`]} ${
+            styles[`menu-${align}`]
+          }`}
         >
           {items.map((item) => (
             <div
