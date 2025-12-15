@@ -7,6 +7,7 @@
   display: flex;
   flex-direction: row;
   padding: 0 1rem;
+  padding-top: 0.75rem;
 }
 
 .post-item:hover {
@@ -14,10 +15,10 @@
   background-color: var(--hover-color);
 }
 
-.post-item-wrapper.menu-open .post-item:hover,
+/* .post-item-wrapper.menu-open .post-item:hover,
 .post-item-wrapper.menu-open .header-setting:hover {
   background-color: transparent;
-}
+} */
 
 .avatar-container {
   flex-grow: 0;
@@ -48,11 +49,13 @@
 }
 
 .header-setting {
+  cursor: pointer;
   flex-shrink: 0;
+  background: none;
+  border: none;
 }
 
 .header-setting:hover {
-  cursor: pointer;
   color: var(--text-secondary);
 }
 

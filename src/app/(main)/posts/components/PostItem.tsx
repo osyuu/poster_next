@@ -4,16 +4,17 @@ import styles from "./PostItem.module.css";
 import Link from "next/link";
 import Avatar from "@/components/Avatar";
 import { deletePost } from "../actions";
-import DropdownMenu, { MenuItem } from "@/components/DropdownMenu";
-import { useState } from "react";
+import { MenuItem } from "@/components/DropdownMenu";
+import { useRef } from "react";
+import { useDropdown } from "@/context/DropdownContext";
 
 interface PostItemProps {
   post: PostWithAuthorSummary;
 }
 
 export default function PostItem({ post }: PostItemProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+  const { openDropdown } = useDropdown();
+  const triggerRef = useRef<HTMLButtonElement>(null);
   const handleDelete = async () => {
     if (confirm("確定要刪除此貼文嗎？")) {
       await deletePost(post.id);
@@ -28,12 +29,19 @@ export default function PostItem({ post }: PostItemProps) {
     },
   ];
 
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    openDropdown({
+      items: menuItems,
+      triggerRef,
+      align: "left",
+      position: "bottom",
+    });
+  };
+
   return (
-    <div
-      className={`${styles["post-item-wrapper"]} ${
-        isMenuOpen ? styles["menu-open"] : ""
-      }`}
-    >
+    <div className={`${styles["post-item-wrapper"]}`}>
       <Link href={`/posts/${post.id}`} className={styles["post-item"]}>
         <div className={styles["avatar-container"]}>
           <Avatar src={post.author.avatar} alt={post.author.display} />
@@ -51,12 +59,13 @@ export default function PostItem({ post }: PostItemProps) {
                 })}
               </span>
             </div>
-            <DropdownMenu
-              trigger={<div className={styles["header-setting"]}>⋯</div>}
-              items={menuItems}
-              align="left"
-              onOpenChange={setIsMenuOpen}
-            />
+            <button
+              className={styles["header-setting"]}
+              onClick={handleClick}
+              ref={triggerRef}
+            >
+              ⋯
+            </button>
           </div>
           <div className={styles["content"]}>
             <span>{`${post.content}\n${post.content}`}</span>
