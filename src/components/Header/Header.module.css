@@ -29,6 +29,7 @@
 .header-content {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
 }
 
 .logo {
@@ -46,43 +47,52 @@
 }
 
 .header-tabs {
+  width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
   position: relative;
-  gap: 0 1rem;
 }
 
-.header-tabs:after {
+.header-tab {
+  width: 100%;
+  flex-grow: 1;
+}
+.header-tab:not(:last-child):after {
   content: "";
   position: absolute;
   left: 0;
   top: 100%;
   width: 100%;
   height: 1px;
-  background-color: red;
 }
 
-.header-tab {
-  position: relative;
-  text-decoration: none;
-  color: var(--text-tertiary);
-  font-weight: 700;
-  font-size: 2rem;
-  border-bottom: 3px solid transparent;
-  transition: all 0.3s ease;
+.header-post {
+  min-width: 90%;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: center;
+  margin: 1rem 0;
 }
 
-.header-tab:not(:last-child):after {
-  content: "";
-  display: inline-block;
-  align-self: stretch;
-  width: 2px;
-  background: red;
-  margin-left: 1rem;
+.header-post-button {
+  width: 100%;
+  min-height: 52px;
+  background: var(--button-secondary);
+  color: var(--text-inverse);
+  border: none;
+  border-radius: 1.5rem;
+  cursor: pointer;
+
+  display: flex;
 }
 
-.header-tab:hover {
-  background-color: rgba(255, 0, 0, 0.5);
+.header-post-button-content {
+  flex: 1;
+  font-weight: 700;
+  font-size: 1.25rem;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

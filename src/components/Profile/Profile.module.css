@@ -1,9 +1,9 @@
 .header-profile-wrapper {
+  border-radius: 50px;
 }
 
 .header-profile-wrapper:hover {
   background-color: var(--hover-primary);
-  border-radius: 50px;
 }
 
 .header-profile {

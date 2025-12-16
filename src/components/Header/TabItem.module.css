@@ -1,0 +1,28 @@
+.tab-item-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  padding: 0.25rem 0;
+  color: var(--text-tertiary);
+}
+
+.tab-item-wrapper:hover .tab-item-content {
+  background-color: var(--hover-primary);
+}
+
+.tab-item-content {
+  display: flex;
+  flex-direction: row;
+  width: min-content;
+  padding: 0.75rem;
+  border-radius: 50px;
+  font-weight: 700;
+  font-size: 1.25rem;
+}
+
+.tab-item-icon {
+}
+
+.tab-item-label {
+  margin: 0 1rem;
+}
