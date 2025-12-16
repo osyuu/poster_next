@@ -40,6 +40,14 @@ async function main() {
     },
   }));
 
+  await db.insert(schema.user).values({
+    id: 4,
+    username: "admin",
+    email: "admin@example.com",
+    display: "Admin",
+    avatar: "https://ui-avatars.com/api/?name=Admin&size=40",
+  });
+
   console.log("Seeding completed");
 
   await db.execute(
