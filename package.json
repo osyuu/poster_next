@@ -12,6 +12,7 @@
     "dotenv": "^17.2.3",
     "drizzle-orm": "^0.45.0",
     "drizzle-seed": "^0.3.1",
+    "lucide-react": "^0.561.0",
     "next": "^16.0.8",
     "next-auth": "^5.0.0-beta.30",
     "postgres": "^3.4.7",
@@ -23,7 +24,7 @@
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "babel-plugin-react-compiler": "1.0.0",
-    "drizzle-kit": "^0.31.8",
+    "drizzle-kit": "^0.18.1",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "typescript": "^5"

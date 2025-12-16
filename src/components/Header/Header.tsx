@@ -3,11 +3,12 @@ import Image from "next/image";
 import styles from "./Header.module.css";
 import Profile from "../Profile";
 import TabItem from "./TabItem";
+import { Bell, Home } from "lucide-react";
 
 export default async function Header() {
   const tabs = [
-    { href: "/", label: "Home" },
-    { href: "/notifications", label: "Notifications" },
+    { href: "/", label: "Home", icon: <Home /> },
+    { href: "/notifications", label: "Notifications", icon: <Bell /> },
   ];
   return (
     <header className={styles["header-container"]}>
@@ -27,7 +28,7 @@ export default async function Header() {
             <div className={styles["header-tabs"]}>
               {tabs.map((tab) => (
                 <div className={styles["header-tab"]} key={tab.href}>
-                  <TabItem href={tab.href} label={tab.label} />
+                  <TabItem href={tab.href} label={tab.label} icon={tab.icon} />
                 </div>
               ))}
             </div>
