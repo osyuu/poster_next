@@ -3,9 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   /* config options here */
   reactCompiler: true,
-};
-
-module.exports = {
+  devIndicators: { position: "bottom-right" }, // 或 { position: "bottom-right" }
   images: {
     remotePatterns: [
       {
@@ -13,6 +11,15 @@ module.exports = {
         hostname: "ui-avatars.com",
       },
     ],
+  },
+  async redirects() {
+    return [
+      {
+        source: "/",
+        destination: "/home",
+        permanent: true,
+      },
+    ];
   },
 };
 
