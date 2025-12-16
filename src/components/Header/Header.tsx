@@ -33,7 +33,10 @@ export default async function Header() {
               ))}
             </div>
             <div className={styles["header-post"]}>
-              <Link href="/" className={styles["header-post-button"]}>
+              <Link
+                href="/compose/post"
+                className={styles["header-post-button"]}
+              >
                 <div className={styles["header-post-button-content"]}>
                   <span>POST</span>
                 </div>

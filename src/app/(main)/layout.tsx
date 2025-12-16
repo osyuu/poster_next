@@ -4,8 +4,10 @@ import SidebarColumn from "@/components/SidebarColumn";
 
 export default function MainLayout({
   children,
+  modal,
 }: {
   children: React.ReactNode;
+  modal: React.ReactNode;
 }) {
   return (
     <div className={styles["container"]}>
@@ -20,6 +22,7 @@ export default function MainLayout({
           </div>
         </div>
       </main>
+      {modal}
     </div>
   );
 }

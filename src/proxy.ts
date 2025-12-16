@@ -1,5 +1,6 @@
 import { auth } from "@/lib/auth";
 import { NextResponse } from "next/server";
+import { trackPreviousPage } from "@/proxy/trackPreviousPage";
 
 export default auth((req) => {
   const isLoggedIn = !!req.auth;
@@ -21,18 +22,23 @@ export default auth((req) => {
     return NextResponse.redirect(new URL("/login", req.url));
   }
 
+  if (isLoggedIn) {
+    return trackPreviousPage(req, NextResponse.next());
+  }
+
   return NextResponse.next();
 });
 
 export const config = {
   matcher: [
     /*
-     * 排除以下路徑：
-     * - _next/static (靜態檔案)
-     * - _next/image (圖片優化)
-     * - favicon.ico
-     * - 公開資源 (images, icons 等)
+     * 以下で始まるリクエストパス以外のすべてをマッチングします：
+     * - api（APIルート）
+     * - _next/static（静的ファイル）
+     * - _next/image（画像最適化ファイル）
+     * - favicon.ico、sitemap.xml、robots.txt（メタデータファイル）
+     * - .well-known（システム路徑）
      */
-    "/((?!_next/static|_next/image|favicon.ico|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
+    "/((?!api|_next/static|_next/image|favicon.ico|sitemap.xml|robots.txt|\\.well-known|.*\\.(?:svg|png|jpg|jpeg|gif|webp)$).*)",
   ],
 };
