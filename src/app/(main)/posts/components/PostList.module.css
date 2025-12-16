@@ -7,6 +7,10 @@
   border-bottom: 1px solid var(--border-light);
 }
 
+.post-item-container {
+  min-height: 1px;
+}
+
 @media (prefers-color-scheme: dark) {
   .post-list-container {
     --hover-color: rgba(255, 255, 255, 0.05);
